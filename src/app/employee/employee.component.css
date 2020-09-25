@@ -1,0 +1,10 @@
+
+  .example-button-row button,
+  .example-button-row a {
+    margin-right: 8px;
+  }
+
+  .mat-header-cell {
+    background-color:lightcoral;
+    color: white;
+  }
