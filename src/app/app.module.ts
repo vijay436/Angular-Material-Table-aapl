@@ -21,6 +21,15 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { EmployeeOverlayComponent } from './employee/employee-overlay/employee-overlay.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDividerModule } from '@angular/material/divider';
+import { CommonModule } from '@angular/common';
+import { LoginComponent } from './login/login.component';
 
 
 
@@ -38,12 +47,17 @@ import { EmployeeOverlayComponent } from './employee/employee-overlay/employee-o
 
     SidenavListComponent,
 
-    EmployeeOverlayComponent
+    EmployeeOverlayComponent,
+
+    LoginComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,   
     HttpClientModule,
     MatToolbarModule,
     MatIconModule,
@@ -53,9 +67,17 @@ import { EmployeeOverlayComponent } from './employee/employee-overlay/employee-o
     MatSortModule,
     MatTableModule,
     MatProgressSpinnerModule,
-    FlexLayoutModule
+    MatDialogModule,
+    MatRadioModule,    
+    MatFormFieldModule,
+    MatInputModule,
+    MatDividerModule,    
+    FlexLayoutModule,
+    MatCardModule
   ],
+  entryComponents:[EmployeeOverlayComponent],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [LoginComponent],
+  
 })
 export class AppModule { }

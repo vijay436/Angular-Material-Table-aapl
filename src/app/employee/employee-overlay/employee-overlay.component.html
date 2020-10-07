@@ -1,1 +1,41 @@
-<p>employee-overlay works!</p>
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>{{overlayTitle}}</mat-card-title>
+        <mat-card-subtitle>Add or Edit Employee Info.</mat-card-subtitle>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+    <p></p>
+    <mat-card-content>
+        <p></p>
+        <form [formGroup]="overlayForm">
+            <div class="mat-elevation-z2 p-8">
+                <br>
+                <div fxLayout="row" fxLayoutGap="20px">
+                    <mat-form-field fxFlex="50">
+                        <mat-label>Employee Id</mat-label>
+                        <input matInput formControlName="Id" [value]="employee.Id" readonly>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row" fxLayoutGap="20px">
+                    <mat-form-field fxFlex="50">
+                        <mat-label>Employee Name</mat-label>
+                        <input matInput formControlName="Name" [value]="employee.Name" required>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row" fxLayoutGap="20px">
+                    <mat-radio-group formControlName="IsComplete" fxFlex="50">
+                        <mat-label>isComplete</mat-label>
+                        <mat-radio-button value="true">Active</mat-radio-button>
+                        <mat-radio-button value="false">InActive</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <br>
+            </div>
+            <div >
+                <button mat-raised-button color="primary" (click)="save()">Save</button>
+                <button mat-raised-button  (click)="close()">{{cancelCloseBtnTitle}}</button>
+            </div>
+
+        </form>
+    </mat-card-content>
+</mat-card>

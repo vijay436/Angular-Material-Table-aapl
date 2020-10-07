@@ -4,6 +4,8 @@ import { GenericApiService } from '../shared/generic-api.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { MatSort } from '@angular/material/sort';
+import { MatDialog } from '@angular/material/dialog';
+import { EmployeeOverlayComponent } from './employee-overlay/employee-overlay.component';
 
 
 export interface Employee {
@@ -21,7 +23,7 @@ export interface Employee {
   styleUrls: ['./employee.component.css']
 })
 export class EmployeeComponent implements OnInit {
-  @ViewChild('employeeSort', {static:false}) employeeSort:MatSort;
+  @ViewChild('employeeSort', { static: false }) employeeSort: MatSort;
 
   tableHeader: any[];
   tblDataList: Employee[];
@@ -31,14 +33,15 @@ export class EmployeeComponent implements OnInit {
   employeeDataSource: MatTableDataSource<any> = new MatTableDataSource(Object.assign([], []));
   loadingEmployees: boolean;
   employee$: Subscription;
-  dataReturnedText : string;
-  employeeCol : string;
+  dataReturnedText: string;
+  employeeCol: string;
+  employeeData: Subscription;
 
   displayedColumns: string[] = [
-    'id','name','isComplete'
+    'Id', 'Name', 'IsComplete'
   ];
 
-  constructor(private genericApiService: GenericApiService<any>) { }
+  constructor(private dailog: MatDialog, private genericApiService: GenericApiService<any>) { }
 
   ngOnInit() {
     this.getEmpData();
@@ -49,22 +52,60 @@ export class EmployeeComponent implements OnInit {
     this.loadingEmployees = true;
     this.employee$ = this.genericApiService.getAll('Employees/EmployeeList').subscribe(
       (res) => {
-     this.employeeDataSource.data = res;
-     setTimeout(() => {
-       this.employeeDataSource.sort = this.employeeSort;
-     });
-     this.dataReturnedText = (this.employeeDataSource.data.length === 0) ? 'No Records Found.' : '';
-     this.loadingEmployees = false;
+        this.employeeDataSource.data = res;
+        setTimeout(() => {
+          this.employeeDataSource.sort = this.employeeSort;
+        });
+        this.dataReturnedText = (this.employeeDataSource.data.length === 0) ? 'No Records Found.' : '';
+        this.loadingEmployees = false;
 
-    },
-    (err) => {
-      this.loadingEmployees = false;      
-    }
+      },
+      (err) => {
+        this.loadingEmployees = false;
+      }
     );
   }
 
-  employeeSortChange(){
-    this.employeeCol = (this.employeeSort.direction !=='') ? this.employeeSort.active : '';
+  employeeSortChange() {
+    this.employeeCol = (this.employeeSort.direction !== '') ? this.employeeSort.active : '';
+  }
+
+  openEditOverlay(empId: any) {
+    this.showEditOverlay(empId.id);
+  }
+
+  showEditOverlay(id: number): void {
+    this.employeeData = this.genericApiService.getById('Employees/EmpById/', id.toString()).subscribe(
+      (res) => {
+        setTimeout(() => {
+          this.showOverlay(id, res);
+        });
+      });
+  }
+
+  addEmployee(){
+    this.showOverlay(0, null);
+  }
+
+  showOverlay(id: number, empData: any) {
+    let width = 600;
+
+    const dialogRef = this.dailog.open(EmployeeOverlayComponent, {
+      width: width + 'px',
+      
+      disableClose: true,
+      data: {
+        id: id,
+        employeeData: empData,
+        overlayTitle: 'Update Employee'
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result.status === 'success') {
+        // To refresh table.
+        this.getEmpData();
+      }
+    });
   }
 }
 
