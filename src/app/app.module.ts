@@ -6,8 +6,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { EmployeeComponent } from './employee/employee.component';
-import { StudentComponent } from './student/student.component';
-import { DeptComponent } from './dept/dept.component';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -20,8 +19,6 @@ import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.com
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { EmployeeOverlayComponent } from './employee/employee-overlay/employee-overlay.component';
-import { MatDialogModule } from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -29,17 +26,14 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDividerModule } from '@angular/material/divider';
 import { CommonModule } from '@angular/common';
-import { LoginComponent } from './login/login.component';
+
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    EmployeeComponent,
-    StudentComponent,
-
-    DeptComponent,
+    EmployeeComponent, 
 
     HomeComponent,
 
@@ -47,9 +41,7 @@ import { LoginComponent } from './login/login.component';
 
     SidenavListComponent,
 
-    EmployeeOverlayComponent,
-
-    LoginComponent
+    
   ],
   imports: [
     CommonModule,
@@ -67,7 +59,6 @@ import { LoginComponent } from './login/login.component';
     MatSortModule,
     MatTableModule,
     MatProgressSpinnerModule,
-    MatDialogModule,
     MatRadioModule,    
     MatFormFieldModule,
     MatInputModule,
@@ -75,9 +66,9 @@ import { LoginComponent } from './login/login.component';
     FlexLayoutModule,
     MatCardModule
   ],
-  entryComponents:[EmployeeOverlayComponent],
+  entryComponents:[],
   providers: [],
-  bootstrap: [LoginComponent],
+  bootstrap: [AppComponent],
   
 })
 export class AppModule { }
